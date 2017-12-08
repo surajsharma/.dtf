@@ -1,3 +1,5 @@
+// LEARNING TO SPEAK GO
+
 package main
 
 import "fmt"
