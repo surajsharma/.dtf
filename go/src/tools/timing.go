@@ -5,12 +5,12 @@ import (
 	"time"
 )
 
-func Timing() {
+func Timing(multiple int) {
 	fmt.Println("Problem Size \t\t\t", "Seconds")
 	var i int
 	for i = 1; i < 5; i++ {
-		var problemSize = 1000 * i
-		start := time.Now()
+		var problemSize = multiple * i
+		Start := time.Now()
 		work := 1
 		var problem = problemSize
 
@@ -20,7 +20,7 @@ func Timing() {
 			problem--
 		}
 		end := time.Now()
-		elapsed := start.Sub(end)
+		elapsed := end.Sub(Start)
 		fmt.Print(problemSize, " problems solved in \t", elapsed, ".\n")
 		problemSize *= 2
 	}
