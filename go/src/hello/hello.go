@@ -12,8 +12,8 @@ func main() {
 	fmt.Print("How many Fibonacci should I print? : ")
 	var fib = 0
 	fmt.Scan(&fib)
+	tools.Fibonaccir(fib, 1, 2)
 	tools.Fibonacci(fib)
-
 	//--------------------------------------------------
 	//	tools.Timing(10000)
 	//	var input int
