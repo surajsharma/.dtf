@@ -8,8 +8,14 @@ import (
 )
 
 func main() {
-	fmt.print("\033[H\033[2J")
-	tools.Timing(10000)
+	fmt.Print("\033[H\033[2J")
+	fmt.Print("How many Fibonacci should I print? : ")
+	var fib = 0
+	fmt.Scan(&fib)
+	tools.Fibonacci(fib)
+
+	//--------------------------------------------------
+	//	tools.Timing(10000)
 	//	var input int
 	//	fmt.Println("Enter number to factorialize: ")
 	//	fmt.Scanln(&input)
