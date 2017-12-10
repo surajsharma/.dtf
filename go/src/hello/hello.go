@@ -2,11 +2,13 @@
 
 package main
 
-//import "fmt"
-import "tools"
+import (
+	"fmt"
+	"tools"
+)
 
 func main() {
-	print("\033[H\033[2J")
+	fmt.print("\033[H\033[2J")
 	tools.Timing(10000)
 	//	var input int
 	//	fmt.Println("Enter number to factorialize: ")
