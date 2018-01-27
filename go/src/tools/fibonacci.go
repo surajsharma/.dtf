@@ -13,6 +13,12 @@ import (
 //			p=n	p=3
 //			n=f	n=5
 //
+// The Hyenas 
+
+"Look, here's the deal", Z said to me that afternoon by the lake, sipping his pepsi slowly, "we will bury it under a stream, under the nallah, you understand?" and I couldn't 
+
+
+
 
 func Fibonaccir(till, p, n int) int {
 	if till > 2 {
