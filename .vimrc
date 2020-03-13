@@ -7,6 +7,7 @@ call plug#begin('~/.vim/plugged')
 	Plug 'jiangmiao/auto-pairs'
 	Plug 'pangloss/vim-javascript'
 	Plug 'mxw/vim-jsx'
+	Plug 'leafgarland/typescript-vim'
 	Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 call plug#end()
 
