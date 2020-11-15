@@ -1,10 +1,18 @@
 export TERM=xterm-256color
+export DYLD_FALLBACK_LIBRARY_PATH=/usr/local/opt/openssl@1.1/lib
+export DYLD_FALLBACK_LIBRARY_PATH=/usr/local/opt/openssl/lib
+
 
 
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:/usr/local/bin:$PATH
 export PATH=$HOME/Code/tools/vert.x-2.1.5/bin:$PATH
 export PATH=$HOME/Code/tools/phantom/bin:$PATH
+export PATH=/Users/suraj/Library/Python/3.7/bin:$PATH
+
+export LLVM="/usr/local/opt/llvm/bin"
+export BINARYEN="/usr/local/opt/binaryen/bin"
+
 
 # Path to your oh-my-zsh installation.
 export ZSH="/Users/suraj/.oh-my-zsh"
@@ -145,3 +153,9 @@ POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator background_jobs virtua
   # Set Spaceship ZSH as a prompt
   autoload -U promptinit; promptinit
   prompt spaceship
+export PATH="/usr/local/sbin:$PATH"
+export PATH="/usr/local/opt/llvm/bin:$PATH"
+export PATH="$HOME/.gem/ruby/2.6.0/bin:$PATH"
+export PATH="/usr/local/opt/python@3.8/bin:$PATH"
+alias lzd='lazydocker'
+alias t='todo.sh'
