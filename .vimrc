@@ -11,5 +11,10 @@ call plug#begin('~/.vim/plugged')
 	Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 call plug#end()
 
+autocmd FileType python map <buffer> <F9> :w<CR>:exec '!python3' shellescape(@%, 1)<CR>
+autocmd FileType python imap <buffer> <F9> <esc>:w<CR>:exec '!python3' shellescape(@%, 1)<CR>
+
+
+
 set number
 map <C-n> :NERDTreeToggle<CR>
