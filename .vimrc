@@ -4,6 +4,9 @@ set incsearch   " show incremental search results as you type
 set number      " display line number
 set noswapfile  " disable swap file
 
+let g:airline_powerline_fonts = 1
+let g:airline_theme='minimalist'
+
 call plug#begin('~/.vim/plugged')
 	Plug 'vim-airline/vim-airline'
 	Plug 'vim-airline/vim-airline-themes'
@@ -11,9 +14,7 @@ call plug#begin('~/.vim/plugged')
 	Plug '/usr/local/opt/fzf'
 	Plug 'junegunn/fzf.vim'
 	Plug 'jiangmiao/auto-pairs'
-	Plug 'pangloss/vim-javascript'
-	Plug 'mxw/vim-jsx'
-	Plug 'leafgarland/typescript-vim'
+	Plug 'sheerun/vim-polyglot'
 	Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 call plug#end()
 
