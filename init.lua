@@ -4,7 +4,7 @@ local BITLY_API_ACCESS_TOKEN = "0304c31fccbfd280d46049beef7103a7042313b4"
 
 hs.loadSpoon("MiroWindowsManager")
 hs.loadSpoon("ReloadConfiguration")
-hs.loadSpoon("BingDaily")
+--hs.loadSpoon("BingDaily")
 hs.loadSpoon("Caffeine")
 
 spoon.ReloadConfiguration:start()
@@ -59,10 +59,10 @@ end)
 
 
 -- View your api_dev_key here: http://pastebin.com/api
- local PASTEBIN_API_DEVELOPER_KEY = "d5747520988e69c4d187c7c01f77e74b"
+local PASTEBIN_API_DEVELOPER_KEY = "4u4rX4aNA3phF9ZZJQxZe2B_YFUhckFE"
 
  -- Generate your api_user_key here: http://pastebin.com/api/api_user_key.html
- local PASTEBIN_API_USER_KEY = "1bdc5d08a85cafb5fa7969caf3792d78"
+ local PASTEBIN_API_USER_KEY = "44538f0017dc9d1cb143f2ea05a891d7"
 
  -- This makes a paste public or private, public = 0, unlisted = 1, private = 2
  local PASTEBIN_API_PASTE_PRIVATE = "1"
@@ -80,29 +80,28 @@ There are 7 valid values available which you can use with the 'api_paste_expire_
 local PASTEBIN_API_PASTE_EXPIRE = "N"
 
 hs.hotkey.bind({"cmd", "alt", "ctrl"}, "P", function()
-    local board = hs.pasteboard.getContents()
-    local response = hs.http.asyncPost(
-        "http://pastebin.com/api/api_post.php",
-        "api_option=paste" ..
-            "&api_dev_key=" .. PASTEBIN_API_DEVELOPER_KEY ..
-            "&api_user_key=" .. PASTEBIN_API_USER_KEY ..
-            "&api_paste_private=" .. PASTEBIN_API_PASTE_PRIVATE ..
-            "&api_paste_expire_date=" .. PASTEBIN_API_PASTE_EXPIRE ..
-            "&api_paste_code=" .. hs.http.encodeForQuery(board),
-        {},
-        function(http_code, response)
-            if http_code == 200 then
-                hs.pasteboard.setContents(response)
-                hs.notify.new({title="Pastebin Paste Successful", informativeText=response}):send()
-                hs.alert.show(response)
-            else
-                hs.notify.new({title="Pastebin Paste Failed!", informativeText=response}):send()
-                hs.alert.show(response)
-            end
-        end
-        )
-    end)
-
+  local board = hs.pasteboard.getContents()
+  local response = hs.http.asyncPost(
+    "https://pastebin.com/api/api_post.php",
+    "api_option=paste" ..
+      "&api_dev_key=" .. PASTEBIN_API_DEVELOPER_KEY ..
+      "&api_user_key=" .. PASTEBIN_API_USER_KEY ..
+      "&api_paste_private=" .. PASTEBIN_API_PASTE_PRIVATE ..
+      "&api_paste_expire_date=" .. PASTEBIN_API_PASTE_EXPIRE ..
+      "&api_paste_code=" .. hs.http.encodeForQuery(board),
+    {},
+    function(http_code, response)
+      if http_code == 200 then
+        hs.pasteboard.setContents(response)
+        hs.notify.new({title="Pastebin Paste Successful", informativeText=response}):send()
+        hs.alert.show(response)
+      else
+        hs.notify.new({title="Pastebin Paste Failed!", informativeText=response}):send()
+        hs.alert.show(response)
+      end
+    end
+    )
+  end)
 
 -- Auto config reload
 function reloadConfig(files)
@@ -117,6 +116,7 @@ function reloadConfig(files)
         bingRequest()
     end
 end
+
 myWatcher = hs.pathwatcher.new(os.getenv("HOME") .. "/.hammerspoon/", reloadConfig):start()
 hs.alert.show("Config (re)loaded")
 
