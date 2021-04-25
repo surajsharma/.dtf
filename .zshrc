@@ -6,9 +6,8 @@ export DYLD_FALLBACK_LIBRARY_PATH=/usr/local/opt/openssl/lib
 
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:/usr/local/bin:$PATH
-export PATH=$HOME/Code/tools/vert.x-2.1.5/bin:$PATH
-export PATH=$HOME/Code/tools/phantom/bin:$PATH
-export PATH=/Users/suraj/Library/Python/3.7/bin:$PATH
+
+path+=/Applications/Racket\ v8.0/bin/
 
 export LLVM="/usr/local/opt/llvm/bin"
 export BINARYEN="/usr/local/opt/binaryen/bin"
