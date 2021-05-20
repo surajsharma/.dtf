@@ -61,11 +61,11 @@ end)
 -- View your api_dev_key here: http://pastebin.com/api
 local PASTEBIN_API_DEVELOPER_KEY = "4u4rX4aNA3phF9ZZJQxZe2B_YFUhckFE"
 
- -- Generate your api_user_key here: http://pastebin.com/api/api_user_key.html
- local PASTEBIN_API_USER_KEY = "44538f0017dc9d1cb143f2ea05a891d7"
+-- Generate your api_user_key here: http://pastebin.com/api/api_user_key.html
+local PASTEBIN_API_USER_KEY = "44538f0017dc9d1cb143f2ea05a891d7"
 
- -- This makes a paste public or private, public = 0, unlisted = 1, private = 2
- local PASTEBIN_API_PASTE_PRIVATE = "1"
+-- This makes a paste public or private, public = 0, unlisted = 1, private = 2
+local PASTEBIN_API_PASTE_PRIVATE = "1"
 
  --[[
 There are 7 valid values available which you can use with the 'api_paste_expire_date' parameter:

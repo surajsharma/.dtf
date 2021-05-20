@@ -6,8 +6,9 @@ export DYLD_FALLBACK_LIBRARY_PATH=/usr/local/opt/openssl/lib
 
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:/usr/local/bin:$PATH
-
 path+=/Applications/Racket\ v8.0/bin/
+
+path+=/Applications/Emacs.app/Contents/MacOS
 
 export LLVM="/usr/local/opt/llvm/bin"
 export BINARYEN="/usr/local/opt/binaryen/bin"
@@ -157,4 +158,5 @@ export PATH="/usr/local/opt/llvm/bin:$PATH"
 export PATH="$HOME/.gem/ruby/2.6.0/bin:$PATH"
 export PATH="/usr/local/opt/python@3.8/bin:$PATH"
 alias lzd='lazydocker'
+alis j='jrnl'
 alias t='todo.sh'
