@@ -160,3 +160,12 @@ export PATH="/usr/local/opt/python@3.8/bin:$PATH"
 alias lzd='lazydocker'
 alias j='jrnl'
 alias t='todo.sh'
+alias td='termdown 15m -z -a -b -c 9 -f cricket'
+alias vt='vtop --theme gooey'
+alias nb='newsboat'
+alias gp='gping google.com'
+
+export PATH="$HOME/.poetry/bin:$PATH"
+
+# Created by `pipx` on 2021-05-21 14:45:22
+export PATH="$PATH:/Users/suraj/.local/bin"
