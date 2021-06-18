@@ -164,6 +164,7 @@ alias td='termdown 15m -z -a -b -c 9 -f cricket'
 alias vt='vtop --theme gooey'
 alias nb='newsboat'
 alias gp='gping google.com'
+alias day='watch -c -t jrnl -from today -to today'
 
 export PATH="$HOME/.poetry/bin:$PATH"
 
