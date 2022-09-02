@@ -119,9 +119,16 @@ source ~/.oh-my-zsh/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias l="lsd -l"
-alias ll='lsd'
 
+source ~/.bash_profile
+
+alias l="lsd -l"
+alias ll='lsd -a'
+
+
+alias dcu="docker-compose up"
+alias dcb="docker-compose up --build"
+alias dcd="docker-compose down"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
@@ -161,6 +168,10 @@ export PATH="/usr/local/sbin:$PATH"
 
 
 
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # Fig post block. Keep at the bottom of this file.
 [[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && . "$HOME/.fig/shell/zshrc.post.zsh"
