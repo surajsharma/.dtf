@@ -5,10 +5,13 @@ set number      " display line number
 set noswapfile  " disable swap file
 
 let g:airline_powerline_fonts = 1
-let g:airline_theme='minimalist'
+
+let g:airline_theme='fairyfloss'
+" set to random for random theme on each open
 
 call plug#begin('~/.vim/plugged')
-	Plug 'vim-airline/vim-airline'
+
+  Plug 'vim-airline/vim-airline'
 	Plug 'vim-airline/vim-airline-themes'
 	Plug 'scrooloose/nerdtree'
 	Plug '/usr/local/opt/fzf'
@@ -16,7 +19,13 @@ call plug#begin('~/.vim/plugged')
 	Plug 'jiangmiao/auto-pairs'
 	Plug 'sheerun/vim-polyglot'
 	Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
+	Plug 'wadackel/vim-dogrun'
+	Plug 'jaredgorski/spacecamp'
+
 call plug#end()
+
+syntax on
+colorscheme spacecamp 
 
 autocmd FileType python map <buffer> <F9> :w<CR>:exec '!python3' shellescape(@%, 1)<CR>
 autocmd FileType python imap <buffer> <F9> <esc>:w<CR>:exec '!python3' shellescape(@%, 1)<CR>
