@@ -120,15 +120,20 @@ source ~/.oh-my-zsh/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-source ~/.bash_profile
 
 alias l="lsd -l"
 alias ll='lsd -a'
 
 
+alias python="python3"
+alias py="python3"
+
 alias dcu="docker-compose up"
 alias dcb="docker-compose up --build"
 alias dcd="docker-compose down"
+
+
+alias f="fd --type  f --hidden --exclude .git | fzf-tmux -p --reverse | xargs -o vim"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
