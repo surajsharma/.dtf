@@ -34,8 +34,12 @@ set cursorcolumn
 map <C-e> :NERDTreeToggle<CR>
 map <C-f> :FZF<CR>
 map <C-v> :vsplit<CR>
-map <C-s> :split<CR>
+map <C-x> :split<CR>
 
 
+;; caret blinking iterm2
+let &t_EI = "\<Esc>[1 q"
+let &t_SR = "\<Esc>[3 q"
+let &t_SI = "\<Esc>[5 q"
 
 nnoremap <space> za
