@@ -5,7 +5,7 @@ set number      " display line number
 set noswapfile  " disable swap file
 
 let g:airline_powerline_fonts = 1
-let g:airline_theme = 'night_owl'
+let g:airline_theme = 'sol'
 
 call plug#begin('~/.vim/plugged')
 	Plug 'vim-airline/vim-airline'
@@ -25,9 +25,17 @@ call plug#end()
 autocmd FileType python map <buffer> <F9> :w<CR>:exec '!python3' shellescape(@%, 1)<CR>
 autocmd FileType python imap <buffer> <F9> <esc>:w<CR>:exec '!python3' shellescape(@%, 1)<CR>
 autocmd BufWritePre *.tsx,*.ts Prettier 
-set number
+
+set relativenumber
 set re=0
 set foldmethod=syntax
+set cursorcolumn
 
-map <C-n> :NERDTreeToggle<CR>
+map <C-e> :NERDTreeToggle<CR>
+map <C-f> :FZF<CR>
+map <C-v> :vsplit<CR>
+map <C-s> :split<CR>
+
+
+
 nnoremap <space> za
