@@ -1,5 +1,3 @@
-# Fig pre block. Keep at the top of this file.
-[[ -f "$HOME/.fig/shell/zshrc.pre.zsh" ]] && . "$HOME/.fig/shell/zshrc.pre.zsh"
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -7,15 +5,8 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-export TERM=xterm-256color
-export DYLD_FALLBACK_LIBRARY_PATH=/usr/local/opt/openssl@1.1/lib
-export DYLD_FALLBACK_LIBRARY_PATH=/usr/local/opt/openssl/lib
-
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
-
-export GOPATH=/Users/admin/evenzero/go
-export PATH=$GOPATH/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
@@ -24,7 +15,10 @@ export ZSH=$HOME/.oh-my-zsh
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-# ZSH_THEME="powerlevel10k/powerlevel10k"
+
+# ZSH_THEME="robbyrussell"
+
+ZSH_THEME="powerlevel10k/powerlevel10k"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -86,8 +80,8 @@ zstyle ':omz:update' mode auto      # update automatically without asking
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-
 plugins=(git)
+
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
@@ -107,10 +101,6 @@ source $ZSH/oh-my-zsh.sh
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
-
-source ~/.oh-my-zsh/oh-my-zsh.sh
-
-
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
@@ -121,28 +111,34 @@ source ~/.oh-my-zsh/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 
-alias l="lsd -l"
+
+#files
+alias l="lsd -la"
 alias ll='lsd -a'
+alias gpg="gping google.com evenzero.in"
 
-
+#dev
 alias python="python3"
 alias py="python3"
 
+#docker
 alias dcu="docker-compose up"
 alias dcb="docker-compose up --build"
 alias dcd="docker-compose down"
 
-
+#fzf
 alias f="fd --type  f --hidden --exclude .git | fzf-tmux -p --reverse | xargs -o vim"
+
+#apps
+alias minif="cd /Users/admin/evenzero/tools/v2 && ./miniflux -c /etc/miniflux.conf"
+alias il="cd /usr/local/opt/input-leap/InputLeap.app/Contents/MacOS && ./input-leap"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 
-
 # ANTIGEN 
-
 source /usr/local/share/antigen/antigen.zsh
 
 antigen use oh-my-zsh
@@ -159,24 +155,7 @@ antigen bundles <<EOBUNDLES
     zsh-users/zsh-autosuggestions
     zsh-users/zsh-syntax-highlighting
 EOBUNDLES
-
-# @see https://github.com/zsh-users/antigen/issues/675
-THEME=therzka/zemoji
-antigen list | grep ${THEME}; if [[ $? -ne 0 ]]; then antigen theme ${THEME}; fi
-
 antigen apply
-eval $(thefuck --alias)
-export PATH="/usr/local/sbin:$PATH"
-export PATH="/usr/local/sbin:$PATH"
 
 
 
-
-
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-# Fig post block. Keep at the bottom of this file.
-[[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && . "$HOME/.fig/shell/zshrc.post.zsh"

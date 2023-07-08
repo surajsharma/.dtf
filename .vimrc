@@ -5,7 +5,7 @@ set number      " display line number
 set noswapfile  " disable swap file
 
 let g:airline_powerline_fonts = 1
-let g:airline_theme = 'sol'
+let g:airline_theme = 'durant'
 
 call plug#begin('~/.vim/plugged')
 	Plug 'vim-airline/vim-airline'
@@ -15,7 +15,7 @@ call plug#begin('~/.vim/plugged')
 	Plug 'junegunn/fzf.vim'
 	Plug 'jiangmiao/auto-pairs'
 	Plug 'sheerun/vim-polyglot'
-
+	Plug 'dyng/ctrlsf.vim'
 	Plug 'prettier/vim-prettier', {
   \ 'do': 'npm i',
   \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'svelte', 'yaml', 'html', 'typescriptreact', 'javascriptreact'] }
