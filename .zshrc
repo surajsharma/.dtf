@@ -137,6 +137,7 @@ alias f="fd --type  f --hidden --exclude .git | fzf-tmux -p --reverse | xargs -o
 #apps
 alias minif="cd /Users/admin/evenzero/tools/v2 && ./miniflux -c /etc/miniflux.conf"
 alias il="cd /usr/local/opt/input-leap/InputLeap.app/Contents/MacOS && ./input-leap"
+alias ggg="gping google.com -c 'red' evenzero.in -c 'cyan' -s --vertical-margin 0"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
