@@ -117,6 +117,7 @@ source $ZSH/oh-my-zsh.sh
 
 
 #files
+alias lsn="print -rC1 -- *(Nn)"
 alias l="lsd -la"
 alias ll='lsd -a'
 alias gpg="gping google.com evenzero.in"
