@@ -131,6 +131,9 @@ alias dcu="docker-compose up"
 alias dcb="docker-compose up --build"
 alias dcd="docker-compose down"
 
+#git
+alias gx="ga .; gc -m "$(date "+%d-%m-%Y")" -a; gp" 
+
 #fzf
 alias f="fd --type  f --hidden --exclude .git | fzf-tmux -p --reverse | xargs -o vim"
 
