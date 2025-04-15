@@ -31,16 +31,13 @@ antigen bundles <<EOBUNDLES
     zsh-users/zsh-syntax-highlighting
 EOBUNDLES
 
-antigen theme kardan
+antigen theme geometry-zsh/geometry
+GEOMETRY_INFO=''
+
 antigen apply
 
-# aliases
-alias python="python3"
-alias l="lsd"
-alias ll="lsd -l"
-
 #fzf
-alias f="fd --type  f --hidden --exclude .git | fzf-tmux -p --reverse | xargs -o vim"
+alias f="fd --type f --follow --hidden --exclude .git | fzf-tmux -p --reverse | xargs -o nvim"
 
 
 # BEGIN opam configuration
@@ -55,3 +52,38 @@ export PATH=~/.cargo/bin/:$PATH
 export PATH=$PATH:/usr/local/go/bin
 export GOPATH=$HOME/go
 export PATH=$PATH:$GOPATH/bin
+export PATH=$PATH:~/.local/bin
+
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/home/suraj/demtech/google-cloud-sdk/path.zsh.inc' ]; then . '/home/suraj/demtech/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/home/suraj/demtech/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/suraj/demtech/google-cloud-sdk/completion.zsh.inc'; fi
+
+# pnpm
+export PNPM_HOME="/home/suraj/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
+
+
+
+
+# aliases
+# docker server (daemon)
+alias d='sudo nohup dockerd > /dev/null 2>&1 &'
+alias dstop='sudo pkill dockerd'
+
+# general
+alias python="python3"
+alias l="lsd"
+alias ll="lsd -l"
+
+# networking
+alias pgbridge='sudo nohup socat TCP-LISTEN:15432,fork TCP:localhost:5432 > /dev/null 2>&1 &'
+alias pgfwd='nohup kubectl port-forward pod/stg-postgresql-0 -n postgresql 5432:5432 > /dev/null 2>&1 &'
+alias pgfwd-stop="sudo pkill -f 'kubectl port-forward pod/stg-postgresql-0'"
