@@ -84,6 +84,40 @@ alias l="lsd"
 alias ll="lsd -l"
 
 # networking
-alias pgbridge='sudo nohup socat TCP-LISTEN:15432,fork TCP:localhost:5432 > /dev/null 2>&1 &'
-alias pgfwd='nohup kubectl port-forward pod/stg-postgresql-0 -n postgresql 5432:5432 > /dev/null 2>&1 &'
-alias pgfwd-stop="sudo pkill -f 'kubectl port-forward pod/stg-postgresql-0'"
+
+
+export PG=stg-postgresql-0
+set_pg() {
+  local pg="$1"
+  if [[ -z "$pg" ]]; then
+    echo "❌ Usage: set_pg <pg>"
+    return 1
+  fi
+  sed -i'' "s/^export PG=.*/export PG=${port}/" ~/.zshrc
+  export PG="$port"
+  echo "✅ PG updated to $PG"
+}
+
+
+export ST=supertokens-core-5fb5dbf697-f9qvr
+set_st() {
+  local st="$1"
+  if [[ -z "$st" ]]; then
+    echo "❌ Usage: set_pg <pg>"
+    return 1
+  fi
+  sed -i'' "s/^export ST=.*/export ST=${st}/" ~/.zshrc
+  export ST="$port"
+  echo "✅ ST updated to $ST"
+}
+
+alias pgbridge='sudo nohup socat TCP-LISTEN:15432,fork TCP:localhost:5432 > /tmp/socat.log 2>&1 &!'
+#alias stbridge='sudo nohup socat TCP-LISTEN:13567,fork TCP:localhost:3567 > /tmp/socat.log 2>&1 &!'
+
+alias pgfwd='nohup kubectl port-forward pod/$PG -n postgresql 5432:5432 > /dev/null 2>&1 &'
+alias stfwd='nohup kubectl port-forward pod/$ST 3567:3567 > /dev/null 2>&1 &'
+
+alias stfwd-stop="sudo pkill -f 'kubectl port-forward pod/$ST'"
+alias pgfwd-stop="sudo pkill -f 'kubectl port-forward pod/$PG'"
+
+alias scatkill="sudo pkill -f '^socat TCP-LISTEN:' && echo '🛑 All socat bridges stopped.'"
