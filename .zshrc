@@ -99,7 +99,7 @@ set_pg() {
 }
 
 
-export ST=supertokens-core-5fb5dbf697-bm66z
+export ST=supertokens-core-5fb5dbf697-jc2zb
 set_st() {
   local st="$1"
   if [[ -z "$st" ]]; then
@@ -107,7 +107,7 @@ set_st() {
     return 1
   fi
   sed -i'' "s/^export ST=.*/export ST=${st}/" ~/.zshrc
-  export ST="$port"
+  export ST="$st"
   echo "✅ ST updated to $1"
 }
 
