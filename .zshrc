@@ -85,7 +85,6 @@ alias ll="lsd -l"
 
 # networking
 
-
 export PG=stg-postgresql-0
 set_pg() {
   local pg="$1"
@@ -94,12 +93,12 @@ set_pg() {
     return 1
   fi
   sed -i'' "s/^export PG=.*/export PG=${port}/" ~/.zshrc
-  export PG="$port"
+  export PG="$PG"
   echo "✅ PG updated to $1"
 }
 
 
-export ST=supertokens-core-5fb5dbf697-jc2zb
+export ST=supertokens-core-6554fbcd45-qbzdk
 set_st() {
   local st="$1"
   if [[ -z "$st" ]]; then
@@ -121,13 +120,20 @@ alias scat="ps aux | grep '[s]ocat TCP-LISTEN:'"
 
 
 #kubectl port-forwarding
-alias pgfwd='nohup kubectl port-forward pod/$PG -n postgresql 5432:5432 > /dev/null 2>&1 &'
-alias stfwd='nohup kubectl port-forward pod/$ST 3567:3567 > /dev/null 2>&1 &'
-alias stfwd-stop="sudo pkill -f 'kubectl port-forward pod/$ST'"
-alias pgfwd-stop="sudo pkill -f 'kubectl port-forward pod/$PG'"
+alias pgpf='nohup kubectl port-forward pod/$PG -n postgresql 5432:5432 > /dev/null 2>&1 &'
+alias stpf='nohup kubectl port-forward pod/$ST 3567:3567 > /dev/null 2>&1 &'
+alias stpfx="sudo pkill -f 'kubectl port-forward pod/$ST'"
+alias pgpfx="sudo pkill -f 'kubectl port-forward pod/$PG'"
 alias pfkill="sudo pkill -f '^kubectl port-forward' && echo '🛑 All kubectl port-forwards stopped.'"
 alias pf="ps aux | grep '[k]ubectl port-forward'"
 
 
+##random 
+alias recent='pkill -f anna.sh; nohup ~/anna.sh >/dev/null 2>&1 & disown;' 
+alias rc='tail -f ~/annas_recent.log | awk '\''/^===/ {print; next} /^\[/ {p=1} p; /^\]/ {p=0}'\'' | grep -v "^===" | jq'
+
 # Start Docker daemon if not running
 alias docd="sudo pgrep dockerd > /dev/null || (nohup sudo dockerd > /dev/null 2>&1 &)"
+export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
+export PATH="$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+alias count='find . -name "*.md" ! -name "index.md" -exec wc -w {} +'
