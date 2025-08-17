@@ -1,0 +1,18 @@
+[General]
+LastUsedVersion=210800
+SideBarPage=operations
+
+[MainWindow]
+MenuBar=Disabled
+
+[Recent Files]
+File1[$e]=$HOME/Pictures/Screenshots/2025-08-17_00-47-20.png
+File2[$e]=$HOME/Pictures/Screenshots/2025-08-17_00-47-07.png
+File3[$e]=$HOME/Pictures/Screenshots/2025-08-17_00-48-37.png
+Name1[$e]=2025-08-17_00-47-20.png
+Name2[$e]=2025-08-17_00-47-07.png
+Name3[$e]=2025-08-17_00-48-37.png
+
+[SideBar]
+InformationSplitterSizes=218,257
+SideBarSplitterSizes=206,765

@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# Check if currently muted, then toggle
+if wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep -q "MUTED"; then
+    wpctl set-mute @DEFAULT_AUDIO_SINK@ 0
+else
+    wpctl set-mute @DEFAULT_AUDIO_SINK@ 1
+fi
+/usr/bin/volume-notify

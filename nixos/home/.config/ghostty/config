@@ -1,0 +1,78 @@
+# This is the configuration file for Ghostty.
+#
+# This template file has been automatically created at the following
+# path since Ghostty couldn't find any existing config files on your system:
+#
+#   /home/suraj/.config/ghostty/config
+#
+# The template does not set any default options, since Ghostty ships
+# with sensible defaults for all options. Users should only need to set
+# options that they want to change from the default.
+#
+# Run `ghostty +show-config --default --docs` to view a list of
+# all available config options and their default values.
+#
+# Additionally, each config option is also explained in detail
+# on Ghostty's website, at https://ghostty.org/docs/config.
+
+# Window appearance and behavior - borderless and titleless
+window-decoration = none
+window-padding-x = 10
+window-padding-y = 10
+
+# Window sizing - use large values to effectively maximize
+window-width = 200
+window-height = 60
+
+# Single instance configuration (may not work with KDE global shortcuts)
+gtk-single-instance = true
+
+# Quick terminal (quake-style) configuration
+# Note: Global shortcuts may not work properly in KDE/Wayland
+# You may need to set up the shortcut in KDE System Settings instead
+keybind = global:ctrl+grave_accent=toggle_quick_terminal
+quick-terminal-animation-duration = 0.2
+quick-terminal-screen = main
+quick-terminal-position = top
+
+# Alternative: Use KDE's custom shortcuts
+# Go to System Settings > Shortcuts > Custom Shortcuts
+# Add new shortcut: Ctrl+`
+# Command: ghostty --class=quake-terminal
+
+# Transparency settings
+background-opacity = 0.85
+unfocused-split-opacity = 0.7
+
+# Dark theme colors
+background = 1a1a1a
+foreground = ffffff
+cursor-color = ffffff
+selection-background = 404040
+selection-foreground = ffffff
+
+# Dark color palette
+palette = 0=2e3436
+palette = 1=cc0000
+palette = 2=4e9a06
+palette = 3=c4a000
+palette = 4=3465a4
+palette = 5=75507b
+palette = 6=06989a
+palette = 7=d3d7cf
+palette = 8=555753
+palette = 9=ef2929
+palette = 10=8ae234
+palette = 11=fce94f
+palette = 12=729fcf
+palette = 13=ad7fa8
+palette = 14=34e2e2
+palette = 15=eeeeec
+
+# Font settings (optional - uncomment and modify if desired)
+font-family = Berkeley Mono
+font-size = 12
+
+# Additional settings for clean appearance
+mouse-hide-while-typing = true
+copy-on-select = clipboard

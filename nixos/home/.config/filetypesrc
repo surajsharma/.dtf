@@ -1,0 +1,7 @@
+[EmbedSettings]
+embed-image/jpeg=false
+embed-image/png=false
+
+[Notification Messages]
+askEmbedOrSaveimage/jpeg=no
+askSaveimage/jpeg=no
