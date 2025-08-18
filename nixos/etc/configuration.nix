@@ -1,4 +1,10 @@
-{pkgs, ...}: {
+# suraj@evenzero
+# nixOS Config
+{
+  lib,
+  pkgs,
+  ...
+}: {
   imports = [
     ./hardware-configuration.nix
   ];
@@ -10,18 +16,48 @@
   # - NETWORKING -
   networking.hostName = "nixos";
   networking.networkmanager.enable = true;
+  networking.wireless.iwd.enable = true; #inet wireless daemon
+  networking.networkmanager.wifi.backend = "iwd"; # Use iwd as backend
 
   # - XDG portal config for Wayland -
   xdg.portal = {
     enable = true;
     extraPortals = with pkgs; [
       kdePackages.xdg-desktop-portal-kde # For Plasma sessions
+      xdg-desktop-portal-gtk
+      xdg-desktop-portal-wlr
     ];
     # Explicit portal configuration to prevent conflicts
   };
 
+  # Add this to your configuration.nix or home.nix
+  xdg.mime.defaultApplications = {
+    # Image files - using sxiv as default viewer
+    "image/bmp" = "sxiv.desktop";
+    "image/gif" = "sxiv.desktop";
+    "image/jpeg" = "sxiv.desktop";
+    "image/png" = "sxiv.desktop";
+    "image/svg+xml" = "sxiv.desktop";
+    "image/tiff" = "sxiv.desktop";
+    "image/webp" = "sxiv.desktop";
+
+    # Text files
+    "text/html" = "firefox.desktop";
+    "text/plain" = "nvim.desktop";
+
+    "inode/directory" = "thunar.desktop";
+    "application/x-gnome-saved-search" = "thunar.desktop";
+
+    # URL scheme handlers
+    "x-scheme-handler/about" = "firefox.desktop";
+    "x-scheme-handler/http" = "firefox.desktop";
+    "x-scheme-handler/https" = "firefox.desktop";
+    "x-scheme-handler/unknown" = "firefox.desktop";
+  };
+
   # - USERS -
   users.users.suraj = {
+    shell = pkgs.zsh;
     isNormalUser = true;
     description = "suraj";
     extraGroups = ["networkmanager" "wheel" "docker"];
@@ -46,16 +82,30 @@
     LC_TIME = "en_IN";
   };
 
+  # Enable thumbnail support
+  services.tumbler.enable = true;
+
   # X11 server (needed for apps that still use Xwayland)
   services.xserver.enable = true;
 
+  # dbus
+  services.dbus.enable = true;
+
   # display manager
-  services.displayManager.sddm.enable = true;
+  services.displayManager.ly.enable = true;
+  services.displayManager.ly.settings = {
+    animation = "matrix";
+    bigclock = true;
+  };
+
   services.displayManager.autoLogin.enable = false;
   services.displayManager.autoLogin.user = "suraj";
 
   # plasma is optional, disable if you want pure sway
-  services.desktopManager.plasma6.enable = true;
+  services.desktopManager.plasma6 = {
+    enable = false;
+    enableQt5Integration = true;
+  };
 
   # flatpack
   services.flatpak.enable = true;
@@ -81,18 +131,24 @@
   # Add gnome-keyring for secret management in Sway
   services.gnome.gnome-keyring.enable = true;
 
+  # bluetooth
+  hardware.bluetooth.enable = true;
+
   # - ENVIRONMENT -
   # environment variables specifically for Sway session
   environment.sessionVariables = {
     MOZ_ENABLE_WAYLAND = "1";
     XDG_CURRENT_DESKTOP = "sway";
     XDG_SESSION_TYPE = "wayland";
+    XDG_SESSION_DESKTOP = "sway";
+    GTK_THEME = "Adwaita:dark";
   };
 
   # packages
   environment.systemPackages = with pkgs; [
     wget
     neofetch
+
     git
     nodejs_20
     python3
@@ -114,8 +170,12 @@
     lazygit
     lazydocker
 
+    stylua
+    lua-language-server
+
     pkgs.ghostty
     pkgs.sxiv
+    pkgs.lsyncd
 
     # screenshot system
     grim
@@ -144,8 +204,16 @@
     networkmanagerapplet
     blueman
     pavucontrol
-
     foliate # book reader
+
+    xfce.thunar
+    xfce.thunar-volman # for removable media
+    xfce.thunar-archive-plugin # for archive support
+
+    # GTK theme packages (choose your preferred theme)
+    adwaita-qt
+    libsForQt5.qtstyleplugin-kvantum
+    phinger-cursors
   ];
 
   # mako configuration directory and file
@@ -262,7 +330,7 @@
     mode = "0644";
   };
 
-  # 4. Create test notification script
+  # create test notification script
   environment.etc."sway/test-notifications.sh" = {
     text = ''
       #!/usr/bin/env bash
@@ -300,9 +368,14 @@
     '';
     mode = "0755";
   };
+
   # - PROGRAMS -
   programs.sway.enable = true; # enable sway
   programs.firefox.enable = true; # enable firefox
+  programs.zsh.enable = true;
+
+  # enable GTK theming system-wide
+  programs.dconf.enable = true;
 
   # - SECURITY -
   security.polkit.enable = true;
@@ -312,7 +385,16 @@
   # - EVERYTHING ELSE -
   # Flakes
   nix.settings.experimental-features = ["nix-command" "flakes"];
-  nixpkgs.config.allowUnfree = true;
+  nixpkgs.config = {
+    allowUnfree = true;
+    packageOverrides = pkgs: {
+      kdePackages =
+        pkgs.kdePackages
+        // {
+          dolphin = pkgs.runCommand "dolphin-disabled" {} "mkdir $out";
+        };
+    };
+  };
 
   # Virtu/Docker
   virtualisation.docker.enable = true;
