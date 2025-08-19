@@ -82,7 +82,7 @@
     },
 
     "clock": {
-        "format": "{:%Y-%m-%d %I:%M:%S %p}",
-        "interval": 1
+      "format": "{:%a %Y-%m-%d %I:%M:%S %p}",
+      "interval": 1
     }
 }
