@@ -1,4 +1,7 @@
-# Delete all generations except the current one
+# collect flake garbage
+nix-collect-garbage
+
+#Delete all generations except the current one
 sudo nix-collect-garbage -d
 
 # Or more specifically for NixOS generations
