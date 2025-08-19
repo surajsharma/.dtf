@@ -1,0 +1,99 @@
+* {
+    font-family: "Berkeley Mono";
+    font-size: 14px;
+}
+
+window#waybar {
+    background-color: rgba(0, 0, 0, 0.88);
+    color: #ffffff;
+    transition-property: background-color;
+    transition-duration: .5s;
+}
+
+#workspaces button {
+    padding: 0 8px;
+    background-color: rgba(0, 0, 0, 0);
+    color: #666666;
+    border: none;
+    border-radius: 0;
+}
+
+#workspaces button:hover {
+    color: #000000;
+    background-color: transparent;
+}
+
+#workspaces button.focused {
+    background-color: rgba(255,5,5,0.33);
+    color: #ffffff;
+}
+
+#workspaces button.urgent {
+    background-color: #ff0000;
+    color: #000000;
+}
+
+#network,
+#custom-network,
+#battery,
+#custom-weather,
+#tray,
+#clock {
+    padding: 0 8px;
+    color: #ffffff;
+}
+
+#network {
+    /* cursor property not supported in waybar CSS */
+}
+
+#network.disconnected {
+    color: #ff0000;
+}
+
+#battery.charging, #battery.plugged {
+    color: #26A65B;
+}
+
+#battery.critical:not(.charging) {
+    background-color: #ff0000;
+    color: #ffffff;
+    animation-name: blink;
+    animation-duration: 0.5s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+/* CPU usage text colors */
+#cpu {
+    color: #4caf50; /* default green */
+}
+
+#cpu.high {
+    color: #ff9800; /* orange when high */
+}
+
+#cpu.critical {
+    color: #f44336; /* red when critical */
+}
+
+/* Memory usage text colors */
+#memory {
+    color: #4caf50; /* default green */
+}
+
+#memory.high {
+    color: #ff9800; /* orange when high */
+}
+
+#memory.critical {
+    color: #f44336; /* red when critical */
+}
+
+@keyframes blink {
+    to {
+        background-color: #ffffff;
+        color: #000000;
+    }
+}

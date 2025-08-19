@@ -3,6 +3,7 @@
 {
   lib,
   pkgs,
+  config,
   ...
 }: {
   imports = [
@@ -12,6 +13,7 @@
   # - BOOTLOADER -
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.kernelModules = ["usb_storage" "usbhid" "mtp" "libusb"];
 
   # - NETWORKING -
   networking.hostName = "nixos";
@@ -60,7 +62,7 @@
     shell = pkgs.zsh;
     isNormalUser = true;
     description = "suraj";
-    extraGroups = ["networkmanager" "wheel" "docker"];
+    extraGroups = ["networkmanager" "wheel" "docker" "video" "input" "adbusers"];
     packages = with pkgs; [
       kdePackages.kate
     ];
@@ -82,6 +84,17 @@
     LC_TIME = "en_IN";
   };
 
+  services.udev.extraRules = ''
+    # Google
+    SUBSYSTEM=="usb", ATTR{idVendor}=="18d1", MODE="0666", GROUP="adbusers"
+    # Samsung
+    SUBSYSTEM=="usb", ATTR{idVendor}=="04e8", MODE="0666", GROUP="adbusers"
+    # OnePlus
+    SUBSYSTEM=="usb", ATTR{idVendor}=="2a70", MODE="0666", GROUP="adbusers"
+    # POCO
+    SUBSYSTEM=="usb", ATTR{idVendor}=="1d6b", MODE="0666", GROUP="plugdev"
+  '';
+
   # Enable thumbnail support
   services.tumbler.enable = true;
 
@@ -101,6 +114,7 @@
   services.displayManager.autoLogin.enable = false;
   services.displayManager.autoLogin.user = "suraj";
 
+  services.xserver.desktopManager.xfce.enable = true;
   # plasma is optional, disable if you want pure sway
   services.desktopManager.plasma6 = {
     enable = false;
@@ -130,6 +144,9 @@
 
   # Add gnome-keyring for secret management in Sway
   services.gnome.gnome-keyring.enable = true;
+
+  services.gvfs.enable = true;
+  services.udisks2.enable = true; # required for device mounting
 
   # bluetooth
   hardware.bluetooth.enable = true;
@@ -210,10 +227,15 @@
     xfce.thunar-volman # for removable media
     xfce.thunar-archive-plugin # for archive support
 
+    gvfs # mount backend
+
     # GTK theme packages (choose your preferred theme)
     adwaita-qt
     libsForQt5.qtstyleplugin-kvantum
     phinger-cursors
+
+    android-tools
+    mtpfs # for file transfers via MTP
   ];
 
   # mako configuration directory and file
@@ -373,11 +395,13 @@
   programs.sway.enable = true; # enable sway
   programs.firefox.enable = true; # enable firefox
   programs.zsh.enable = true;
+  programs.gtklock.enable = true;
 
   # enable GTK theming system-wide
   programs.dconf.enable = true;
 
   # - SECURITY -
+  security.pam.services.gtklock = {};
   security.polkit.enable = true;
   security.pam.services.sddm.enableGnomeKeyring = true;
   security.rtkit.enable = true;

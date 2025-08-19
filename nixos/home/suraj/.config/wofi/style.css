@@ -1,0 +1,40 @@
+window {
+  font-family: "Berkeley Mono";
+  font-size: 14px;
+  background-color: rgba(20, 20, 20, 0.8); /* darker, less transparent */
+  backdrop-filter: blur(20px);              /* frosted glass */
+  border: none;
+  border-radius: 0;
+  padding: 6px;
+  margin: 0;  
+  position: fixed;
+  bottom: 0;
+}
+
+#input {
+  background-color: rgba(20, 20, 20, 0.8); /* same as window */
+  color: #ffffff;
+  border: none;
+  padding: 6px;
+  caret-shape: block;
+  caret-color: #ff6600;   /* bright orange caret */
+}
+
+#entry {
+  padding: 4px 10px;
+  color: #ffffff;
+}
+
+#entry::after{
+
+  text-transform: uppercase !important;
+}
+
+#entry:selected {
+  background-color: rgba(200, 22, 10, 0.5);
+  color: #000000;
+}
+
+#text {
+  padding: 10px;
+}
