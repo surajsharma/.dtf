@@ -4,7 +4,7 @@
     "spacing": 4,
     "modules-left": ["sway/workspaces"],
     "modules-center": [],
-    "modules-right": ["cpu", "memory", "custom/weather", "custom/network", "clock", "battery", "tray", "bluetooth" ],
+    "modules-right": ["cpu", "memory", "custom/weather", "custom/network", "clock", "battery", "idle_inhibitor", "tray", "bluetooth" ],
     
     "sway/workspaces": {
         "disable-scroll": true,
@@ -65,6 +65,14 @@
         "tooltip": false
     },
     
+    "idle_inhibitor": {
+      "format": "{icon}",
+      "format-icons": {
+          "activated": "🔓",
+          "deactivated": "🔒"
+      }
+    },
+
     "tray": {
         "spacing": 10
     },
