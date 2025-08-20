@@ -48,22 +48,11 @@
 
     # Add this to your configuration.nix or home.nix
     mime.defaultApplications = {
-      # Image files - using sxiv as default viewer
-      "image/bmp" = "sxiv.desktop";
-      "image/gif" = "sxiv.desktop";
-      "image/jpeg" = "sxiv.desktop";
-      "image/png" = "sxiv.desktop";
-      "image/svg+xml" = "sxiv.desktop";
-      "image/tiff" = "sxiv.desktop";
-      "image/webp" = "sxiv.desktop";
-
-      # Text files
-      "text/html" = "firefox.desktop";
-      "text/plain" = "nvim.desktop";
-
       "inode/directory" = "thunar.desktop";
       "application/x-gnome-saved-search" = "thunar.desktop";
 
+      "text/html" = "firefox.desktop";
+      
       # URL scheme handlers
       "x-scheme-handler/about" = "firefox.desktop";
       "x-scheme-handler/http" = "firefox.desktop";
@@ -217,6 +206,8 @@
 
       bison
       flex
+      clang-tools # includes clangd (and other extras, formatter)
+      clang
       gcc
       gnumake
       cmake
@@ -241,7 +232,6 @@
       stylua
       lua-language-server
 
-      pkgs.sxiv
       pkgs.lsyncd
 
       # screenshot system
@@ -375,18 +365,6 @@
         '';
         mode = "0644";
       };
-
-      # create a system-wide .desktop for sxiv
-      "xdg/desktop-directories/sxiv.desktop".text = ''
-        [Desktop Entry]
-        Name=sxiv
-        Comment=Simple X Image Viewer
-        Exec=sxiv %F
-        Icon=image-x-generic
-        Type=Application
-        Categories=Graphics;Viewer;
-        MimeType=image/bmp;image/gif;image/jpeg;image/png;image/tiff;
-      '';
 
       # Alternative: Create a Sway config snippet that you can include
       "sway/mako.conf" = {
