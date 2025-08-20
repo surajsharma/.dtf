@@ -3,8 +3,6 @@
 # Sway Window Manager Configuration
 # ==========================================
 # Author: suraj@evenzero
-# Description: Clean and organized Sway WM config
-# Last Modified: $(date +%Y-%m-%d)
 # ==========================================
 
 # ==========================================
@@ -51,13 +49,8 @@ gaps outer 0
 # Smart border behavior
 hide_edge_borders smart
 
-# gtklock on idle 
-exec_always --no-startup-id pkill swayidle; exec swayidle -w timeout 10 '~/.config/sway/lock.sh' before-sleep '~/.config/sway/lock.sh' after-resume 'swaymsg reload'
-
-# gtklock lid close
-exec_always swayidle -w before-sleep '/run/current-system/sw/bin/gtklock'
-
-exec_always swayidle -w after-resume 'swaymsg reload'
+# gtklock lid close / idle
+exec_always swayidle -w before-sleep '/run/current-system/sw/bin/gtklock' timeout 10 '~/.config/sway/lock.sh'
 
 # WAYBAR 
 exec waybar 
