@@ -51,11 +51,12 @@ gaps outer 0
 # Smart border behavior
 hide_edge_borders smart
 
+# lid close lock
+exec_always /run/current-system/sw/bin/swayidle -w before-sleep '/run/current-system/sw/bin/gtklock'
+
 # WAYBAR 
 exec waybar 
 
-# gtklock on idle 
-exec_always --no-startup-id pkill swayidle; exec swayidle -w timeout 10 '~/.config/sway/lock.sh'
 
 # nm-applet for wifi
 exec nm-applet --indicator 

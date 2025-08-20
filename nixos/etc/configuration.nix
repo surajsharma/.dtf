@@ -109,6 +109,10 @@
   };
 
   services = {
+    logind = {
+      lidSwitch = "suspend";
+    };
+
     udev.extraRules = ''
       # Google
       SUBSYSTEM=="usb", ATTR{idVendor}=="18d1", MODE="0666", GROUP="adbusers"
@@ -210,10 +214,22 @@
       rustc
       cargo
       neovim
+
+      bison
+      flex
       gcc
       gnumake
       cmake
+      vcpkg
+      autoconf
+      cacert
+      automake
+      libtool
       pkg-config
+      ninja
+      gettext # for autopoint
+      m4
+      perl
       ruby
       bundler
       jekyll
@@ -225,7 +241,6 @@
       stylua
       lua-language-server
 
-      pkgs.ghostty
       pkgs.sxiv
       pkgs.lsyncd
 
@@ -241,6 +256,7 @@
 
       # Sway ecosystem
       sway # the WM
+      swayidle
       waybar # status bar
       wofi # launcher
       mako # notifications
@@ -256,6 +272,7 @@
       networkmanagerapplet
       blueman
       pavucontrol
+
       foliate # book reader
 
       xfce.thunar
@@ -275,6 +292,7 @@
 
     # mako configuration directory and file
     etc = {
+      # mako notification style
       "xdg/mako/config" = {
         text = ''
           # Mako configuration
@@ -460,9 +478,11 @@
   nixpkgs.config = {
     allowUnfree = true;
     packageOverrides = pkgs: {
-      kdePackages = pkgs.kdePackages // {
-        dolphin = pkgs.runCommand "dolphin-disabled" {} "mkdir $out";
-      };
+      kdePackages =
+        pkgs.kdePackages
+        // {
+          dolphin = pkgs.runCommand "dolphin-disabled" {} "mkdir $out";
+        };
     };
   };
 
