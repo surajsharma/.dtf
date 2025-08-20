@@ -51,12 +51,16 @@ gaps outer 0
 # Smart border behavior
 hide_edge_borders smart
 
-# lid close lock
-exec_always /run/current-system/sw/bin/swayidle -w before-sleep '/run/current-system/sw/bin/gtklock'
+# gtklock on idle 
+exec_always --no-startup-id pkill swayidle; exec swayidle -w timeout 10 '~/.config/sway/lock.sh' before-sleep '~/.config/sway/lock.sh' after-resume 'swaymsg reload'
+
+# gtklock lid close
+exec_always swayidle -w before-sleep '/run/current-system/sw/bin/gtklock'
+
+exec_always swayidle -w after-resume 'swaymsg reload'
 
 # WAYBAR 
 exec waybar 
-
 
 # nm-applet for wifi
 exec nm-applet --indicator 
@@ -150,7 +154,7 @@ bindsym $mod+Shift+z exec ~/.config/sway/lock.sh
 
 # Window management
 bindsym $mod+Shift+q kill
-bindsym $mod+Shift+c reload
+bindsym $mod+Shift+c reload, exec "pkill waybar && waybar >/dev/null 2>&1 &"
 bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
 
 # Mouse integration
