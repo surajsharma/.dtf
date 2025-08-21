@@ -52,7 +52,7 @@
       "application/x-gnome-saved-search" = "thunar.desktop";
 
       "text/html" = "firefox.desktop";
-      
+
       # URL scheme handlers
       "x-scheme-handler/about" = "firefox.desktop";
       "x-scheme-handler/http" = "firefox.desktop";
@@ -191,48 +191,61 @@
 
     # packages
     systemPackages = with pkgs; [
+      # utils
       wget
       neofetch
+      pkgs.lsyncd
 
+      ripgrep
+      fd
+
+      # code
       git
+      neovim
+      wezterm
+
+      #languages
       nodejs_20
       python3
-      docker
-      wezterm
       go
       rustc
       cargo
-      neovim
-
-      bison
-      flex
-      clang-tools # includes clangd (and other extras, formatter)
-      clang
-      gcc
-      gnumake
-      cmake
-      vcpkg
-      autoconf
-      cacert
-      automake
-      libtool
-      pkg-config
-      ninja
-      gettext # for autopoint
-      m4
+      jdk
       perl
       ruby
       bundler
       jekyll
-      ripgrep
-      fd
+
+      # build systems
+      gradle
+
+      cmake
+      gnumake
+      automake
+      ninja
+
+      #c/c++
+      bison
+      flex
+      clang
+      gcc
+      vcpkg
+      autoconf
+      cacert
+      libtool
+      pkg-config
+      gettext # for autopoint
+      m4
       lazygit
       lazydocker
+      docker
 
+      #lsp
       stylua
       lua-language-server
-
-      pkgs.lsyncd
+      clang-tools # includes clangd (and other extras, formatter)
+      rust-analyzer
+      rustfmt
 
       # screenshot system
       grim
