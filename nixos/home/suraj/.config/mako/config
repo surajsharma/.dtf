@@ -1,0 +1,77 @@
+# Mako notification configuration
+
+# Position and layout
+anchor=top-right
+width=300
+height=80
+margin=10
+padding=15
+border-size=0
+border-radius=0
+
+# Colors (Minimal transparent black with orange accents)
+background-color=#000000CC
+text-color=#FFFFFF
+border-color=#FF6600
+progress-color=over #FF0000AA
+
+# Typography
+font=Berkeley Mono 11
+
+# Behavior
+default-timeout=5000
+ignore-timeout=0
+max-history=50
+sort=-time
+layer=overlay
+max-visible=3
+
+# Icons
+icons=1
+max-icon-size=48
+icon-path=/run/current-system/sw/share/icons/Adwaita:/run/current-system/sw/share/pixmaps
+
+# Grouping
+group-by=app-name
+
+# Input handling
+on-button-left=dismiss
+on-button-middle=none
+on-button-right=dismiss-all
+on-touch=dismiss
+
+# Format
+format=<b>%s</b>\n%b
+markup=1
+
+# Application-specific styles
+[app-name="Volume"]
+background-color=#000000CC
+default-timeout=2000
+format=<b>%s</b>\n%b
+
+[app-name="Brightness"]
+background-color=#000000CC
+default-timeout=2000
+format=<b>%s</b>\n%b
+
+[app-name="Network"]
+background-color=#000000CC
+format=<b>%s</b>\n%b
+
+# Urgency-based styling
+[urgency=critical]
+background-color=#000000E6
+text-color=#FF6600
+default-timeout=0
+ignore-timeout=1
+
+[urgency=high]
+background-color=#000000CC
+text-color=#FFFFFF
+default-timeout=10000
+
+[urgency=low]
+background-color=#000000B3
+text-color=#FFFFFFB3
+default-timeout=3000
