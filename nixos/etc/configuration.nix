@@ -177,11 +177,14 @@
 
   # bluetooth
   hardware.bluetooth.enable = true;
+  hardware.enableAllFirmware = true;
+
 
   # - ENVIRONMENT -
   # environment variables specifically for Sway session
   environment = {
     sessionVariables = {
+      GSETTINGS_SCHEMA_DIR = "${pkgs.gsettings-desktop-schemas}/share/glib-2.0/schemas";
       MOZ_ENABLE_WAYLAND = "1";
       XDG_CURRENT_DESKTOP = "sway";
       XDG_SESSION_TYPE = "wayland";
@@ -444,6 +447,12 @@
     firefox.enable = true; # enable firefox
     zsh.enable = true;
     gtklock.enable = true;
+    xfconf.enable = true;
+
+    localsend = {
+    	enable = true;
+	openFirewall = true;
+    };
 
     # enable GTK theming system-wide
     dconf.enable = true;
@@ -486,7 +495,7 @@
     packages = with pkgs; [
       (pkgs.stdenv.mkDerivation {
         name = "custom-fonts";
-        src = ./fonts;
+        src = /home/suraj/.dtf/nixos/etc/fonts;
         installPhase = ''
           mkdir -p $out/share/fonts/truetype
           cp *.ttf $out/share/fonts/truetype/
