@@ -495,7 +495,7 @@
     packages = with pkgs; [
       (pkgs.stdenv.mkDerivation {
         name = "custom-fonts";
-        src = /home/suraj/.dtf/nixos/etc/fonts;
+        src = /home/suraj/Portfolios/.dtf/nixos/etc/fonts;
         installPhase = ''
           mkdir -p $out/share/fonts/truetype
           cp *.ttf $out/share/fonts/truetype/
