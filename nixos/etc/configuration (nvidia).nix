@@ -26,6 +26,10 @@
     kernelParams = [
       "nvidia-drm.modeset=1"
       "nvidia-drm.fbdev=1"
+      # Add these for better suspend/resume support
+      "nvidia.NVreg_PreserveVideoMemoryAllocations=1"
+      "nvidia.NVreg_TemporaryFilePath=/var/tmp"
+      "mem_sleep_default=deep"
     ];
   };
 
@@ -148,7 +152,7 @@
           destination = "/share/wayland-sessions/sway-unsupported.desktop";
           text = ''
             [Desktop Entry]
-            Name=Sway (Unsupported GPU)
+            Name=Sway (NVIDIA)
             Comment=An i3-compatible Wayland compositor (unsupported GPU mode)
             Exec=${pkgs.sway}/bin/sway --unsupported-gpu
             Type=Application
@@ -197,6 +201,7 @@
 
     gvfs.enable = true;
     udisks2.enable = true; # required for device mounting
+
   };
 
   hardware = {
@@ -210,7 +215,7 @@
 
     nvidia = {
       modesetting.enable = true;
-      powerManagement.enable = false;
+      powerManagement.enable = true;
       powerManagement.finegrained = false;
       open = false;
       nvidiaSettings = true;
@@ -230,7 +235,7 @@
       GTK_THEME = "Adwaita:dark";
 
       # NVIDIA Wayland support - FIXED VARIABLES
-      GBM_BACKEND = "nvidia-drm";
+      GBM_BACKEND = "vidia-drm";
       __GLX_VENDOR_LIBRARY_NAME = "nvidia";
       WLR_NO_HARDWARE_CURSORS = "1";
     };
@@ -352,6 +357,31 @@
 
     # mako configuration directory and file
     etc = {
+      # Script to handle display issues after suspend
+      "sway/post-suspend.sh" = {
+        text = ''
+          #!/usr/bin/env bash
+
+          # Wait a moment for the system to fully wake
+          sleep 2
+
+          # Reload sway configuration to reinitialize displays
+          swaymsg reload
+
+          # Force display detection
+          swaymsg output "*" enable
+
+          # Restart waybar if it's running
+          pkill waybar
+          waybar &
+
+          # Restart mako if it's running
+          pkill mako
+          mako --config /etc/xdg/mako/config &
+        '';
+        mode = "0755";
+      };
+
       # mako notification style
       "xdg/mako/config" = {
         text = ''
