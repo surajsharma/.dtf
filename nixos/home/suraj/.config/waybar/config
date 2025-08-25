@@ -16,13 +16,13 @@
             "default": ""
         }
     },
-    
+
     "custom/network": {
-        "exec": "WIFI_SSID=$(nmcli -t -f active,ssid dev wifi | egrep '^yes' | cut -d: -f2); WIFI_SIGNAL=$(nmcli -t -f active,signal dev wifi | egrep '^yes' | cut -d: -f2); if [ -n \"$WIFI_SSID\" ]; then echo \"$(echo $WIFI_SSID | tr '[:lower:]' '[:upper:]') ($WIFI_SIGNAL%)\"; else echo \"DISCONNECTED\"; fi",
-        "interval": 5,
-        "format": "{}",
-        "on-click": "nm-connection-editor",
-        "on-click-right": "nmtui"
+    "exec": "WIFI_SSID=$(nmcli -t -f active,ssid dev wifi | egrep '^yes' | cut -d: -f2); WIFI_SIGNAL=$(nmcli -t -f active,signal dev wifi | egrep '^yes' | cut -d: -f2); PING_TIME=$(ping -c 1 -W 2 google.com 2>/dev/null | grep 'time=' | sed 's/.*time=\\([0-9.]*\\).*/\\1/' | head -1); if [ -n \"$WIFI_SSID\" ]; then if [ -n \"$PING_TIME\" ]; then echo \"$(echo $WIFI_SSID | tr '[:lower:]' '[:upper:]') ($WIFI_SIGNAL%) ${PING_TIME}ms\"; else echo \"$(echo $WIFI_SSID | tr '[:lower:]' '[:upper:]') ($WIFI_SIGNAL%) N/A\"; fi; else echo \"DISCONNECTED\"; fi",
+    "interval": 5,
+    "format": "{}",
+    "on-click": "nm-connection-editor",
+    "on-click-right": "nmtui"
     },
  
     "cpu": {
