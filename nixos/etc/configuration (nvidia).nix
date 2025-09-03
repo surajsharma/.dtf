@@ -21,6 +21,7 @@
       "usbhid"
       "mtp"
       "libusb"
+      "snd_hda_intel"
     ];
     kernelPackages = pkgs.linuxPackages_latest;
     kernelParams = [
@@ -351,6 +352,7 @@
       libsForQt5.qtstyleplugin-kvantum
       phinger-cursors
 
+      vscode-fhs
       android-tools
       mtpfs # for file transfers via MTP
     ];
@@ -527,19 +529,21 @@
 
   # - PROGRAMS -
   programs = {
-    sway = {
-      enable = true;
-      # Add sway wrapper with NVIDIA environment
-      wrapperFeatures.gtk = true;
-    };
-    firefox.enable = true; # enable firefox
-    zsh.enable = true;
-    gtklock.enable = true;
-    xfconf.enable = true;
+   nix-ld.enable = true;
+   firefox.enable = true; # enable firefox
+   zsh.enable = true;
+   gtklock.enable = true;
+   xfconf.enable = true;
+ 
+  sway = {
+     enable = true;
+     # Add sway wrapper with NVIDIA environment
+     wrapperFeatures.gtk = true;
+  };
 
-    localsend = {
-      enable = true;
-      openFirewall = true;
+  localsend = {
+   enable = true;
+     openFirewall = true;
     };
 
     # enable GTK theming system-wide
@@ -556,6 +560,19 @@
     rtkit.enable = true;
   };
 
+# - SYSTEMD -
+  systemd.user.services.audio-fix = {
+    description = "Set audio profile";
+    after = [ "graphical-session.target" "pipewire.service" ];
+    wantedBy = [ "default.target" ];
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = "${pkgs.pulseaudio}/bin/pactl set-card-profile alsa_card.pci-0000_00_1f.3 output:analog-stereo";
+      Restart = "on-failure";
+      RestartSec = 1;
+    };
+  };
+  
   # - EVERYTHING ELSE -
   # Flakes
   nix.settings.experimental-features = [
