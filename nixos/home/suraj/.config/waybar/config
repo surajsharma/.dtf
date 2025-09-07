@@ -1,96 +1,129 @@
 {
-    "position": "top",
-    "height": 24,
-    "spacing": 4,
-    "modules-left": ["sway/workspaces"],
-    "modules-center": [],
-    "modules-right": ["cpu", "memory", "custom/weather", "custom/network", "clock", "battery", "idle_inhibitor", "tray", "bluetooth" ],
-    
-    "sway/workspaces": {
-        "disable-scroll": true,
-        "all-outputs": true,
-        "format": "{name}",
-        "format-icons": {
-            "urgent": "",
-            "focused": "",
-            "default": ""
-        }
-    },
-
-    "custom/network": {
+  "position": "top",
+  "height": 24,
+  "spacing": 4,
+  "modules-left": [
+    "sway/workspaces"
+  ],
+  "modules-center": [],
+  "modules-right": [
+    "cpu",
+    "memory",
+    "custom/weather",
+    "custom/network",
+    "clock",
+    "battery",
+    "idle_inhibitor",
+    "tray",
+    "custom/wallrotator",
+    "pulseaudio",
+    "bluetooth"
+  ],
+  "sway/workspaces": {
+    "disable-scroll": true,
+    "all-outputs": true,
+    "format": "{name}",
+    "format-icons": {
+      "urgent": "",
+      "focused": "",
+      "default": ""
+    }
+  },
+  "custom/network": {
     "exec": "WIFI_SSID=$(nmcli -t -f active,ssid dev wifi | egrep '^yes' | cut -d: -f2); WIFI_SIGNAL=$(nmcli -t -f active,signal dev wifi | egrep '^yes' | cut -d: -f2); PING_TIME=$(ping -c 1 -W 2 google.com 2>/dev/null | grep 'time=' | sed 's/.*time=\\([0-9.]*\\).*/\\1/' | head -1); if [ -n \"$WIFI_SSID\" ]; then if [ -n \"$PING_TIME\" ]; then echo \"$(echo $WIFI_SSID | tr '[:lower:]' '[:upper:]') ($WIFI_SIGNAL%) ${PING_TIME}ms\"; else echo \"$(echo $WIFI_SSID | tr '[:lower:]' '[:upper:]') ($WIFI_SIGNAL%) N/A\"; fi; else echo \"DISCONNECTED\"; fi",
     "interval": 5,
     "format": "{}",
     "on-click": "nm-connection-editor",
     "on-click-right": "nmtui"
-    },
- 
-    "cpu": {
-      "interval": 2,
-      "format": "CPU {usage}%",
-      "tooltip": true,
-      "states": {
-        "warning": 70,
-        "critical": 90
-      }
-    },
-
-    "memory": {
-      "interval": 5,
-      "format": " MEM {}% ", // {} = percentage (works on all versions)
-      "format-alt": "MEM {used}/{total} GiB",
-      "tooltip": true,
-      "thresholds": {
-        "warning": 70,
-        "critical": 90
-      }
-    },
-
-    "battery": {
-      "thresholds": {
-          "warning": 30,
-          "critical": 15
-      },
-      "format": "{capacity}%🔋",
-      "format-charging": "{capacity}%🔌 ",
-      "format-plugged": "{capacity}%⚡",
-      "format-alt": "{time} {icon}",
-      "format-icons": ["", "", "", "", ""]
   },
-    
-    "custom/weather": {
-        "exec": "curl -s 'wttr.in/manali?format=%t+%C' 2>/dev/null | tr '[:lower:]' '[:upper:]' || echo 'WEATHER N/A'",
-        "interval": 1800,
-        "format": "{}",
-        "tooltip": false
-    },
-    
-    "idle_inhibitor": {
-      "format": "{icon}",
-      "format-icons": {
-          "activated": "🔓",
-          "deactivated": "🔒"
-      }
-    },
-
-    "tray": {
-        "spacing": 10
-    },
-
-    "bluetooth": {
-      "format": "{icon}",
-      "format-icons": {
-        "disabled": "🔶 ",
-        "enabled":  "❄️ ",
-        "connected":"🟩 "
-      },
-      "tooltip": true,
-      "on-click": "blueman-manager",  // or blueberry
-      "on-click-right": "sh -c 'bluetoothctl show | grep -q \"Powered: yes\" && bluetoothctl power off || bluetoothctl power on'"
-    },
-
-    "clock": {
-      "format": "{:%a %Y-%m-%d %I:%M:%S %p}",
-      "interval": 1
+  "cpu": {
+    "interval": 2,
+    "format": "CPU {usage}%",
+    "tooltip": true,
+    "states": {
+      "warning": 70,
+      "critical": 90
     }
+  },
+  "memory": {
+    "interval": 5,
+    "format": " MEM {}% ",
+    "format-alt": "MEM {used}/{total} GiB",
+    "tooltip": true,
+    "thresholds": {
+      "warning": 70,
+      "critical": 90
+    }
+  },
+  "battery": {
+    "thresholds": {
+      "warning": 30,
+      "critical": 15
+    },
+    "format": "{capacity}%🔋",
+    "format-charging": "{capacity}%🔌 ",
+    "format-plugged": "{capacity}%⚡",
+    "format-alt": "{time} {icon}",
+    "format-icons": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  "custom/weather": {
+    "exec": "curl -s 'wttr.in/manali?format=%t+%C' 2>/dev/null | tr '[:lower:]' '[:upper:]' || echo 'WEATHER N/A'",
+    "interval": 1800,
+    "format": "{}",
+    "tooltip": false
+  },
+  "idle_inhibitor": {
+    "format": "{icon}",
+    "format-icons": {
+      "activated": "🔓",
+      "deactivated": "🔒"
+    }
+  },
+  "tray": {
+    "spacing": 10
+  },
+  "bluetooth": {
+    "format": "{icon}",
+    "format-icons": {
+      "disabled": "🔶 ",
+      "enabled": "❄️ ",
+      "connected": "🟩 "
+    },
+    "tooltip": true,
+    "on-click": "blueman-manager",
+    "on-click-right": "sh -c 'bluetoothctl show | grep -q \"Powered: yes\" && bluetoothctl power off || bluetoothctl power on'"
+  },
+  "clock": {
+    "format": "{:%a %Y-%m-%d %I:%M:%S %p}",
+    "interval": 1
+  },
+  "pulseaudio": {
+    "format": "🔊{volume}% {icon}",
+    "format-bluetooth": "{volume}% {icon} ",
+    "format-bluetooth-muted": " {icon} ",
+    "format-muted": "🔇",
+    "format-source": "{volume}% ",
+    "format-source-muted": "",
+    "format-icons": {
+      "headphone": "",
+      "hands-free": "",
+      "headset": "",
+      "phone": "",
+      "portable": "",
+      "car": "",
+      "default": [
+        "",
+        "",
+        ""
+      ]
+    },
+    "on-click": "pavucontrol",
+    "on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+  }
 }

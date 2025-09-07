@@ -1,4 +1,4 @@
-#!/home/suraj/.nix-profile/bin/zsh
+#!/run/current-system/sw/bin/zsh
 WALLPAPER=$(swww query | grep -o "image: .*" | cut -d' ' -f2- | tr -d '"')
 
 # Generate CSS with the current wallpaper

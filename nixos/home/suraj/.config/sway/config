@@ -33,7 +33,7 @@ set $shots ~/Pictures/Screenshots
 
 # Built-in display scaling
 output eDP-1 {
-    scale 0.7
+    scale 1.0
 }
 
 # ==========================================
@@ -50,7 +50,8 @@ gaps outer 0
 hide_edge_borders smart
 
 # gtklock lid close / idle
-exec_always swayidle -w before-sleep '/run/current-system/sw/bin/gtklock' timeout 10 '~/.config/sway/lock.sh'
+exec_always swayidle -w before-sleep 'gtklock' 
+exec_always swayidle -w timeout 10 '~/.config/sway/lock.sh'
 
 # WAYBAR 
 exec waybar 
@@ -71,7 +72,7 @@ exec_always sh -c 'until swww query >/dev/null 2>&1; do sleep 0.1; done; \
 
 
 # Keybind to change wallpaper randomly
-bindsym $mod+Shift+w exec sh -c 'swww img --transition-type none --resize crop "$(find "$HOME/Pictures/wallpapers" -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" -o -iname "*.webp" \) | shuf -n1)"'
+bindsym $mod+Shift+w exec sh -c 'swww img --transition-type fade --resize crop "$(find "$HOME/Pictures/wallpapers" -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" -o -iname "*.webp" \) | shuf -n1)"'
 
 # ==========================================
 # SCREENSHOT SYSTEM
@@ -149,6 +150,7 @@ bindsym $mod+Shift+z exec ~/.config/sway/lock.sh
 bindsym $mod+Shift+q kill
 bindsym $mod+Shift+c reload, exec "pkill waybar && waybar >/dev/null 2>&1 &"
 bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
+bindsym $mod+Shift+o exec ~/.config/sway/opacity.sh
 
 # Mouse integration
 floating_modifier $mod normal
