@@ -264,9 +264,9 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 # ==========================================
-# STATUS BAR
+# MISCELLANEOUS
 # ==========================================
-
+bindsym $mod+Alt+Space exec rofimoji
 
 # ==========================================
 # ADDITIONAL CONFIGURATION
