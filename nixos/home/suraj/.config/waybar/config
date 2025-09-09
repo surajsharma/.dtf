@@ -17,8 +17,23 @@
     "tray",
     "custom/wallrotator",
     "pulseaudio",
-    "bluetooth"
+    "bluetooth",
+    "custom/sway-scratch"
   ],
+  "custom/sway-scratch": {
+    "interval": 1,
+    "return-type": "json",
+    "format": "{icon}",
+    "format-icons": {
+      "none": "",
+      "one": "☎️1 ",
+      "many": "☎️1+ ",
+      "unknown": "☎️? "
+    },
+    "exec": "~/.config/waybar/scripts/scratch.sh",
+    "exec-if": "exit 0",
+    "on-click": "swaymsg scratchpad show"
+  },
   "sway/workspaces": {
     "disable-scroll": true,
     "all-outputs": true,

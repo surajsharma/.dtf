@@ -97,3 +97,21 @@ window#waybar {
         color: #000000;
     }
 }
+
+
+#custom-sway-scratch {
+    padding: 0px;
+    color: inherit;
+}
+
+#custom-sway-scratch.none {
+    opacity: 0.3;
+}
+
+#custom-sway-scratch.one {
+    color: #81a2be;  /* Blue */
+}
+
+#custom-sway-scratch.many {
+    color: #cc6666;  /* Red */
+}
