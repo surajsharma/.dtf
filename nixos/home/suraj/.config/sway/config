@@ -235,7 +235,7 @@ bindsym $mod+a focus parent
 # ==========================================
 
 # Move window to/from scratchpad
-bindsym $mod+Shift+minus move scratchpad
+bindsym $mod+Shift+minus swaymsg \[con_id=__focused__\] move scratchpad
 bindsym $mod+minus scratchpad show
 
 # ==========================================
