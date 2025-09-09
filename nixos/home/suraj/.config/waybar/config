@@ -88,7 +88,7 @@
     ]
   },
   "custom/weather": {
-    "exec": "curl -s 'wttr.in/manali?format=%t+%C' 2>/dev/null | tr '[:lower:]' '[:upper:]' || echo 'WEATHER N/A'",
+    "exec": "curl -s 'wttr.in/manali,hp?format=%t+%C' 2>/dev/null | tr '[:lower:]' '[:upper:]' || echo 'WEATHER N/A'",
     "interval": 1800,
     "format": "{}",
     "tooltip": false
