@@ -235,8 +235,8 @@ bindsym $mod+a focus parent
 # ==========================================
 
 # Move window to/from scratchpad
-bindsym $mod+Shift+minus exec swaymsg \[con_id=__focused__\] move scratchpad
-bindsym $mod+minus exec swaymsg scratchpad show
+bindsym Ctrl+$mod+Space exec swaymsg \[con_id=__focused__\] move scratchpad
+bindsym Ctrl+$mod+Alt+Space exec swaymsg scratchpad show
 
 # ==========================================
 # RESIZE MODE
