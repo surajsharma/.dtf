@@ -68,11 +68,23 @@ exec swww-daemon --format xrgb
 
 # Set random wallpaper on startup
 exec_always sh -c 'until swww query >/dev/null 2>&1; do sleep 0.1; done; \
-    swww img --transition-type none --resize crop "$(find "$HOME/Pictures/wallpapers" -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" -o -iname "*.webp" \) | shuf -n1)"'
+    Q=/tmp/.wallpaper_queue; \
+    [ ! -s "$Q" ] && { find "$HOME/Pictures/wallpapers" -type f -iname "*.jpg"; \
+    find "$HOME/Pictures/wallpapers" -type f -iname "*.jpeg"; \
+    find "$HOME/Pictures/wallpapers" -type f -iname "*.png"; \
+    find "$HOME/Pictures/wallpapers" -type f -iname "*.webp"; } | shuf > "$Q"; \
+    W=$(head -n1 "$Q"); tail -n +2 "$Q" > "$Q.tmp" && mv "$Q.tmp" "$Q"; \
+    swww img --transition-type none --resize crop "$W"'
 
 
 # Keybind to change wallpaper randomly
-bindsym $mod+Shift+w exec sh -c 'swww img --transition-type fade --resize crop "$(find "$HOME/Pictures/wallpapers" -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" -o -iname "*.webp" \) | shuf -n1)"'
+bindsym $mod+Shift+w exec sh -c 'Q=/tmp/.wallpaper_queue; \
+    [ ! -s "$Q" ] && { find "$HOME/Pictures/wallpapers" -type f -iname "*.jpg"; \
+    find "$HOME/Pictures/wallpapers" -type f -iname "*.jpeg"; \
+    find "$HOME/Pictures/wallpapers" -type f -iname "*.png"; \
+    find "$HOME/Pictures/wallpapers" -type f -iname "*.webp"; } | shuf > "$Q"; \
+    W=$(head -n1 "$Q"); tail -n +2 "$Q" > "$Q.tmp" && mv "$Q.tmp" "$Q"; \
+    swww img --transition-type fade --resize crop "$W"'
 
 # ==========================================
 # SCREENSHOT SYSTEM
