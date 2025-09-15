@@ -27,10 +27,12 @@
   # - NETWORKING -
   networking = {
     hostName = "nixos";
+
     networkmanager = {
       enable = true;
       wifi.backend = "iwd"; # Use iwd as backend
     };
+
     wireless.iwd.enable = true; #inet wireless daemon
 
     nameservers = [

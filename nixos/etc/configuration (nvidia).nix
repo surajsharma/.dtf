@@ -42,6 +42,16 @@
       wifi.backend = "iwd"; # Use iwd as backend
     };
     wireless.iwd.enable = true; #inet wireless daemon
+    nameservers = [
+      "1.1.1.1" # Cloudflare primary
+      "1.0.0.1" # Cloudflare secondary
+      "8.8.8.8" # Google primary
+      "8.8.4.4" # Google secondary
+      "9.9.9.9" # Quad9 primary
+      "149.112.112.112" # Quad9 secondary
+      "208.67.222.222" # OpenDNS primary
+      "208.67.220.220" # OpenDNS secondary
+    ];
   };
 
   # - XDG portal config for Wayland -
