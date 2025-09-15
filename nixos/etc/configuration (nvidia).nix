@@ -41,7 +41,11 @@
       enable = true;
       wifi.backend = "iwd"; # Use iwd as backend
     };
-    wireless.iwd.enable = true; #inet wireless daemon
+
+    wireless = {
+      iwd.enable = true; #inet wireless daemon
+    };
+
     nameservers = [
       "1.1.1.1" # Cloudflare primary
       "1.0.0.1" # Cloudflare secondary
@@ -209,6 +213,12 @@
 
     # Add gnome-keyring for secret management in Sway
     gnome.gnome-keyring.enable = true;
+
+    resolved = {
+      enable = true;
+      dnssec = "allow-downgrade";
+      fallbackDns = ["1.1.1.1" "8.8.8.8" "1.0.0.1" "8.8.4.4"];
+    };
 
     gvfs.enable = true;
     udisks2.enable = true; # required for device mounting
