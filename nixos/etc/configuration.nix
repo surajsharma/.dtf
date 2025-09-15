@@ -33,7 +33,9 @@
       wifi.backend = "iwd"; # Use iwd as backend
     };
 
-    wireless.iwd.enable = true; #inet wireless daemon
+    wireless = {
+      iwd.enable = true; #inet wireless daemon
+    };
 
     nameservers = [
       "1.1.1.1" # Cloudflare primary
@@ -189,6 +191,7 @@
     resolved = {
       enable = true;
       dnssec = "allow-downgrade";
+      fallbackDns = ["1.1.1.1" "8.8.8.8" "1.0.0.1" "8.8.4.4"];
     };
 
     gvfs.enable = true;
