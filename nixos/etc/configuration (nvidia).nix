@@ -202,7 +202,6 @@
 
     gvfs.enable = true;
     udisks2.enable = true; # required for device mounting
-
   };
 
   hardware = {
@@ -529,21 +528,21 @@
 
   # - PROGRAMS -
   programs = {
-   nix-ld.enable = true;
-   firefox.enable = true; # enable firefox
-   zsh.enable = true;
-   gtklock.enable = true;
-   xfconf.enable = true;
- 
-  sway = {
-     enable = true;
-     # Add sway wrapper with NVIDIA environment
-     wrapperFeatures.gtk = true;
-  };
+    nix-ld.enable = true;
+    firefox.enable = true; # enable firefox
+    zsh.enable = true;
+    gtklock.enable = true;
+    xfconf.enable = true;
 
-  localsend = {
-   enable = true;
-     openFirewall = true;
+    sway = {
+      enable = true;
+      # Add sway wrapper with NVIDIA environment
+      wrapperFeatures.gtk = true;
+    };
+
+    localsend = {
+      enable = true;
+      openFirewall = true;
     };
 
     # enable GTK theming system-wide
@@ -558,13 +557,16 @@
     };
     polkit.enable = true;
     rtkit.enable = true;
+    pki.certificateFiles = [
+      "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt"
+    ];
   };
 
-# - SYSTEMD -
+  # - SYSTEMD -
   systemd.user.services.audio-fix = {
     description = "Set audio profile";
-    after = [ "graphical-session.target" "pipewire.service" ];
-    wantedBy = [ "default.target" ];
+    after = ["graphical-session.target" "pipewire.service"];
+    wantedBy = ["default.target"];
     serviceConfig = {
       Type = "oneshot";
       ExecStart = "${pkgs.pulseaudio}/bin/pactl set-card-profile alsa_card.pci-0000_00_1f.3 output:analog-stereo";
@@ -572,7 +574,7 @@
       RestartSec = 1;
     };
   };
-  
+
   # - EVERYTHING ELSE -
   # Flakes
   nix.settings.experimental-features = [
