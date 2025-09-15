@@ -533,4 +533,18 @@
     ];
     fontconfig.enable = true;
   };
+
+  systemd = {
+    services = {
+      mtu-detect = {
+        description = "Auto-detect interface MTU";
+        wantedBy = ["multi-user.target"];
+        after = ["network-pre.target"];
+        serviceConfig = {
+          Type = "oneshot";
+          ExecStart = "/etc/systemd/network/check_mtu.sh";
+        };
+      };
+    };
+  };
 }
