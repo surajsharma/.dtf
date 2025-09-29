@@ -1,8 +1,8 @@
 return {
   "neovim/nvim-lspconfig",
   dependencies = {
-    "williamboman/mason.nvim",
-    "williamboman/mason-lspconfig.nvim",
+    "mason-org/mason.nvim",
+    "mason-org/mason-lspconfig.nvim",
   },
   config = function()
     -- Your existing config
@@ -72,6 +72,7 @@ return {
         -- cmd = { "clangd", "--compile-commands-dir=build" },
       })
     end
+    lspconfig.tsserver.setup({})
     lspconfig.gopls.setup({
       settings = {
         gopls = {
