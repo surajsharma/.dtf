@@ -22,6 +22,11 @@
       "mtp"
       "libusb"
     ];
+    plymouth = {
+      enable = true;
+      theme = "breeze";
+    };
+    kernelParams = ["quiet"];
   };
 
   # - NETWORKING -
