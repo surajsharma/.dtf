@@ -8,6 +8,7 @@
 }: {
   imports = [
     ./hardware-configuration.nix
+    ./cuda-cache.nix
   ];
 
   # - BOOTLOADER -
@@ -16,6 +17,15 @@
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
     };
+
+    # Add NVIDIA modules to initrd
+    initrd.kernelModules = [
+      "nvidia"
+      "nvidia_modeset"
+      "nvidia_uvm"
+      "nvidia_drm"
+    ];
+
     kernelModules = [
       "usb_storage"
       "usbhid"
@@ -23,8 +33,12 @@
       "libusb"
       "snd_hda_intel"
     ];
+
     kernelPackages = pkgs.linuxPackages_latest;
+
     kernelParams = [
+      "quiet" # Essential for Plymouth
+      "splash"
       "nvidia-drm.modeset=1"
       "nvidia-drm.fbdev=1"
       # Add these for better suspend/resume support
@@ -32,6 +46,12 @@
       "nvidia.NVreg_TemporaryFilePath=/var/tmp"
       "mem_sleep_default=deep"
     ];
+
+    plymouth = {
+      #"notoriously finicky on nvidia"
+      enable = true;
+      theme = "breeze";
+    };
   };
 
   # - NETWORKING -
@@ -261,6 +281,9 @@
     };
 
     systemPackages = with pkgs; [
+      plymouth # Explicitly include Plymouth
+      libsForQt5.breeze-plymouth # Breeze theme
+
       # NVIDIA tools - ADDED THESE
       nvidia-vaapi-driver
       libva-utils
@@ -549,7 +572,11 @@
   # - PROGRAMS -
   programs = {
     nix-ld.enable = true;
-    firefox.enable = true; # enable firefox
+    firefox = {
+      enable = true; # enable firefox
+      package = pkgs.firefox-esr; #likely cached
+    };
+
     zsh.enable = true;
     gtklock.enable = true;
     xfconf.enable = true;
@@ -632,5 +659,75 @@
       })
     ];
     fontconfig.enable = true;
+  };
+
+  #systemd
+  systemd = {
+    services = {
+      mtu-detect = {
+        description = "Auto-detect interface MTU";
+        wantedBy = ["multi-user.target"];
+        after = ["network-pre.target"];
+        serviceConfig = {
+          Type = "oneshot";
+          ExecStart = "/etc/systemd/network/check_mtu.sh";
+        };
+      };
+    };
+  };
+
+  #settings and cache
+  nix = {
+    settings = {
+      # CRITICAL: Keep build outputs
+      keep-outputs = true;
+      keep-derivations = true;
+
+      fallback = false;
+
+      # Use binary caches more effectively
+      narinfo-cache-positive-ttl = 86400; # 24 hours
+      narinfo-cache-negative-ttl = 3600; # 1 hour
+
+      # Don't garbage collect build dependencies
+      gc-keep-outputs = true;
+      gc-keep-derivations = true;
+
+      # Trust the caches
+      trusted-substituters = [
+        "https://cache.nixos.org"
+        "https://nix-community.cachix.org"
+        "https://cuda-maintainers.cachix.org"
+      ];
+
+      substituters = [
+        "https://cache.nixos.org"
+        "https://nix-community.cachix.org"
+        "https://cuda-maintainers.cachix.org"
+      ];
+
+      trusted-public-keys = [
+        "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+        "cuda-maintainers.cachix.org-1:0dq3bujKpuEPMCX6U4WylrUDZ9JyUG0VpVZa7CNfq5E="
+      ];
+      # Increase download parallelism
+      max-substitution-jobs = 128;
+      http-connections = 128;
+    };
+
+    # Configure garbage collection to keep recent builds
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 30d";
+      persistent = true;
+    };
+
+    # IMPORTANT: Don't clean up store automatically
+    optimise = {
+      automatic = true;
+      dates = ["weekly"];
+    };
   };
 }
