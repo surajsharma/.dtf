@@ -44,7 +44,7 @@
  *  4 – toolbar on bottom
  */
 :root {
-  --uc-toolbar-position: 4;
+  --uc-toolbar-position: 0;
 }
 
 /*  Darken the Personal Toolbar by X amount

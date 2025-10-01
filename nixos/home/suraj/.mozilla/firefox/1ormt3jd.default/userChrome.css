@@ -35,3 +35,46 @@
 
 @import "includes/cascade-nav-bar.css";
 @import "includes/cascade-tabs.css";
+
+
+/* === Toolbox at bottom (works with Cascade) === */
+
+/* 1) Adjust this to the total height of your bars
+   - If you show bookmarks toolbar: try 64–72px
+   - If you hide bookmarks toolbar: try 40–48px */
+:root {
+  --uc-bottom-height: 22px; /* tweak to your setup */
+}
+
+/* 2) Pin the browser chrome to the bottom */
+#navigator-toolbox {
+  position: fixed !important;
+  bottom: 0 !important;
+  width: 100% !important;
+  z-index: 1000 !important;
+  border-top: 1px solid var(--chrome-content-separator-color) !important;
+  background-color: var(--toolbar-bgcolor) !important;
+}
+
+/* 3) Make room for it so pages aren’t covered */
+#browser,
+#appcontent,
+#tabbrowser-tabbox {
+  margin-bottom: var(--uc-bottom-height) !important;
+}
+
+/* 4) Optional: behave normally in customization/fullscreen */
+:root[customizing] #navigator-toolbox,
+:root[sizemode="fullscreen"] #navigator-toolbox {
+  position: static !important;
+}
+:root[customizing] #browser,
+:root[sizemode="fullscreen"] #browser,
+:root[customizing] #appcontent,
+:root[sizemode="fullscreen"] #appcontent,
+:root[customizing] #tabbrowser-tabbox,
+:root[sizemode="fullscreen"] #tabbrowser-tabbox {
+  margin-bottom: 0 !important;
+}
+
+
