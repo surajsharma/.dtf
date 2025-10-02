@@ -43,7 +43,11 @@
    - If you show bookmarks toolbar: try 64–72px
    - If you hide bookmarks toolbar: try 40–48px */
 :root {
-  --uc-bottom-height: 22px; /* tweak to your setup */
+   --uc-bottom-height: clamp(
+    22px,
+    calc(22px + (1366px - 100vw) / 10),
+    42px
+  ) !important; /* tweak to your setup */
 }
 
 /* 2) Pin the browser chrome to the bottom */
@@ -76,5 +80,3 @@
 :root[sizemode="fullscreen"] #tabbrowser-tabbox {
   margin-bottom: 0 !important;
 }
-
-
